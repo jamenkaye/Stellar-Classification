@@ -10,7 +10,7 @@ python3 -m pip install --user virtualenv
 python3 -m venv ../env-stellar
 
 # Activate the environment
-source ../env-stellar/Scripts/activate
+source ../env-stellar/bin/activate
 
 # update pip for the version in the virtual environment
 python3 -m pip install --user --upgrade pip
