@@ -2,6 +2,7 @@ import astropy.io.fits as fits
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
+import math
 
 # filePath = "access_FITS\hlsp_appp_hst_wfpc2_sfd-pu4k2ho01_f606w_v2_sci_drz.fits"
 # filePath = "access_FITS/sdss_dr_12_data_v1/frame-g-007778-5-0267.fits.bz2"
@@ -26,6 +27,11 @@ for row in range(data.shape[0]):
     
 print("Max: {}. Min: {}.".format(maximum, minimum))
 
+new_arr = np.zeros(data.shape)
+for row in range(data.shape[0]):
+    for col in range(data.shape[1]):
+        new_arr[data.shape[0] - 1 - row][col] = ((data[row][col] - minimum)/(maximum - minimum))**(0.2)
+
 
 # Linear scaling:
 # for row in range(data.shape[0]):
@@ -35,13 +41,14 @@ print("Max: {}. Min: {}.".format(maximum, minimum))
 # Logarithmic scaling?
 
 # Manual binary mask (Doesn't work)
-for row in range(data.shape[0]):
-    for col in range(data.shape[1]):
-        val = data[row][col]
-        # data[row][col] = np.fabs(0.9) if (val > 0.07) else np.fabs(0.1)
-        data[row][col] = 1 - val
+# for row in range(data.shape[0]):
+#     for col in range(data.shape[1]):
+#         val = data[row][col]
+#         # data[row][col] = np.fabs(0.9) if (val > 0.07) else np.fabs(0.1)
+#         # data[row][col] = 1-val
+#         data[row][col] = np.int32(0.99) if val > 0.07 else np.int32(0.01)
         
-print(type(data[100][100])) # Still np.float32 even when I try to change it
+# print(type(data[100][100])) # Still np.float32 even when I try to change it
 
 # Draw circle for test
 
@@ -59,19 +66,9 @@ print(type(data[100][100])) # Still np.float32 even when I try to change it
 # Binary masking
 # data = cv2.inRange(src=data, lowerb=0.07, upperb=30)
 
-maximum = -1
-minimum = 1
-for row in range(data.shape[0]):
-    maximum = max(maximum, max(data[row]))
-    minimum = min(minimum, min(data[row]))
-    
-    # if (max(data[row]) != 255 and max(data[row]) != 0) or min(data[row] != 0):
-    #     print(row)
-        
-    
-print("Max: {}. Min: {}.".format(maximum, minimum))
-print(type(data[100][100]))
 
-resized_image = cv2.resize(data, (0,0), fx=0.5, fy=0.5)
+print(type(new_arr[100][100]))
+
+resized_image = cv2.resize(new_arr, (0,0), fx=0.5, fy=0.5)
 cv2.imshow("data", resized_image)
 cv2.waitKey(0)
