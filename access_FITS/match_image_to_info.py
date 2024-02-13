@@ -63,7 +63,9 @@ for row in range(data.shape[0]):
 
 
 # Draw bounding bars
-squareCentreSDSS = (1290, 930)
+
+# squareCentreSDSS = (1290, 930) The first dim star that worked
+squareCentreSDSS = (620, 310)
 squareCentreToEdge = 20
 squareBorder = 10
 

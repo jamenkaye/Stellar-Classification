@@ -1,2 +1,6 @@
 # Ignore kaggle data folder
-kaggle/data/
+kaggle/data
+*.h5
+*.keras
+
+planes_premade_YOLOv5
