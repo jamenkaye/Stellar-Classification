@@ -1,14 +1,8 @@
 import numpy as np
 import os
 import random
-from ipywidgets import interact
 
-# from tensorflow.keras import layers
 from tensorflow.keras import models
-# from tensorflow.keras import optimizers
-
-# from tensorflow.keras.utils import plot_model
-# from tensorflow.keras import backend
 
 from matplotlib import pyplot as plt
 from PIL import Image
